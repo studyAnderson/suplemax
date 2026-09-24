@@ -26,9 +26,33 @@ const clienteRepository = {
         return rows;
     },
     deletarCliente: async (id) => {
-        const sql = 'DELETE FROM cliente WHERE id = ?;';
-        const [rows] = await pool.execute(sql, [id]);
-        return rows;
+        const conn = await pool.getConnection();
+
+        await conn.beginTransaction();
+
+        try{
+            const sqlTel = 'DELETE FROM telefone WHERE id_cliente = ?;';
+            const [rowsT] = await pool.execute(sqlTel, [id]);
+
+            const sqlEnd = 'DELETE FROM endereco WHERE id_cliente = ?;';
+            const [rowsE] = await pool.execute(sqlEnd, [id]);
+
+            const sqlCli = 'DELETE FROM cliente WHERE id = ?;';
+            const [rowsC] = await pool.execute(sqlCli, [id]);
+            return {
+                rowsC,
+                rowsE,
+                rowsT
+            };
+        }
+        catch(error){
+            console.error(error);
+            await conn.rollback();
+            throw new Error("Erro na transação!");
+        }
+        finally{
+            conn.release();
+        }
     },
 
     criarCliente: async (cpf, nome, email, telefone, endereco) => {
