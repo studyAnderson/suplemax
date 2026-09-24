@@ -3,7 +3,15 @@ import pool from "../configs/database.js";
 
 const clienteRepository = {
     selecionarCliente: async () => {
-        const sql = 'SELECT c.*, t.id AS "id_tel", t.numero, t.ddd FROM cliente AS c LEFT JOIN telefone AS t ON c.id = t.id_cliente;';
+        const sql = `SELECT 
+                        c.*, 
+                        t.id AS "id_tel", t.numero, t.ddd,
+                        e.id AS "id_end", e.cep, e.logradouro, e.numero, e.bairro, e.cidade, e.uf
+                    FROM cliente AS c
+                        INNER JOIN telefone AS t 
+                            ON c.id = t.id_cliente
+                        INNER JOIN endereco AS e 
+                            ON c.id = e.id_cliente;`;
         const [rows] = await pool.execute(sql);
         return rows;
     },
@@ -23,7 +31,7 @@ const clienteRepository = {
         return rows;
     },
 
-    criarCliente: async (cpf, nome, email, telefone) => {
+    criarCliente: async (cpf, nome, email, telefone, endereco) => {
         const conn = await pool.getConnection();
 
         await conn.beginTransaction();
@@ -35,8 +43,19 @@ const clienteRepository = {
 
             const idCliente = rowsCli.insertId;
 
-            const sqlTel = 'INSERT INTO telefone VALUES (null, ?, ?, ?);';
+            const sqlTel = 'INSERT INTO telefone (numero, ddd, id_cliente) VALUES (?, ?, ?);';
             const [rowsTel] = await conn.execute(sqlTel, [telefone.numero, telefone.ddd, idCliente]);
+
+            const sqlEnd = 'INSERT INTO endereco VALUES (null, ?, ?, ?, ?, ?, ?, ?);';
+            const [rowsEnd] = await conn.execute(sqlEnd, [
+                endereco.cep,
+                endereco.logradouro,
+                endereco.numero, 
+                endereco.bairro, 
+                endereco.cidade, 
+                endereco.uf, 
+                idCliente
+            ]);
 
             await conn.commit();
 

@@ -20,7 +20,7 @@ const clienteService = {
     },
 
      criarCliente: async (cliente) => {
-        const resultado = await clienteRepository.criarCliente(cliente.cpf, cliente.nome, cliente.email, cliente.telefone);
+        const resultado = await clienteRepository.criarCliente(cliente.cpf, cliente.nome, cliente.email, cliente.telefone, cliente.endereco);
         return resultado;
     },
 

@@ -1,4 +1,5 @@
 import Cliente from "../models/Cliente.js";
+import Endereco from "../models/Endereco.js";
 import Telefone from "../models/Telefone.js";
 import clienteService from "../services/clienteService.js";
 
@@ -27,11 +28,13 @@ const clienteController = {
     criarCliente: async (req, res) => {
         try {
 
-            const { cpf, nome, email, telefone } = req.body;
+            const { cpf, nome, email, telefone, endereco } = req.body;
 
             const tel = new Telefone(null, telefone.numero, telefone.ddd, null);
 
-            const cliente = new Cliente(cpf, nome, email, telefone);
+            const end = new Endereco(endereco.cep, endereco.logradouro, endereco.numero, endereco.bairro, endereco.cidade, endereco.uf, null, null);
+
+            const cliente = new Cliente(cpf, nome, email, tel, end);
 
             const resultado = await clienteService.criarCliente(cliente);
 

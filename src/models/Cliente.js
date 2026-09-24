@@ -4,13 +4,15 @@ class Cliente {
     #nome;
     #email;
     #telefone;
+    #endereco;
 
-    constructor(cpf, nome, email, telefone, id = null){
+    constructor(cpf, nome, email, telefone, endereco, id = null){
         this.#nome = nome;
         this.#email = email;
         this.#cpf = cpf;
         this.#id = id;
         this.#telefone = telefone;
+        this.#endereco = endereco;
     }
     //id
     get id(){
@@ -52,6 +54,16 @@ class Cliente {
 
     set telefone(value){
         this.#telefone = value;
+    }
+
+    //endereco
+    
+    get endereco(){
+        return this.#endereco
+    }
+
+    set endereco(value){
+        this.#endereco = value;
     }
 };
 export default Cliente;
