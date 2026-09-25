@@ -79,9 +79,9 @@ const clienteController = {
         try {
             const {id}= req.params;
 
-            const {nome, email, cpf, telefone} = req.body;
+            const {nome, email, cpf, telefone, endereco} = req.body;
 
-            const cliente = new Cliente(cpf, nome, email, telefone, id);
+            const cliente = new Cliente(cpf, nome, email, telefone, endereco, id);
 
             const resultado = await clienteService.atualizarCliente(cliente);
 

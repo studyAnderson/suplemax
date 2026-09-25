@@ -95,7 +95,7 @@ const clienteRepository = {
         }
     },
 
-    atualizarCliente: async (cpf, nome, email, id, telefone) => {
+    atualizarCliente: async (cpf, nome, email, id, telefone, endereco) => {
         const conn = await pool.getConnection();
 
         await conn.beginTransaction();
@@ -106,7 +106,11 @@ const clienteRepository = {
             const [rowsCli] = await pool.execute(sqlCli, [nome, email, cpf, id]);
 
             const sqlTel = 'UPDATE telefone SET numero = ?, ddd = ? WHERE id_cliente = ?;';
-            const [rowTel] = await pool.execute(sqlTel, [telefone.numero, telefone.ddd, id]);
+            const [rowsTel] = await pool.execute(sqlTel, [telefone.numero, telefone.ddd, id]);
+
+            const sqlEnd = 'UPDATE endereco SET cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, uf = ? WHERE id_cliente = ?;';
+            const [rowsEnd] = await pool.execute(sqlEnd, [endereco.cep, endereco.logradouro, endereco.numero, endereco.bairro, endereco.cidade, endereco.uf, id]);
+            
 
             return rowsCli;
 

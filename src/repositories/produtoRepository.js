@@ -34,7 +34,7 @@ const produtoRepository = {
     atualizar: async (descricao, preco, estoqueAtual, estoqueMinimo, estoqueMaximo, id) => {
         console.log(descricao, preco, estoqueAtual, estoqueMinimo, estoqueMaximo, id);
         
-        const sql = 'UPDATE produto SET cep = ?, descricao = ?, preco = ?, estoqueAtual = ?, estoqueMinimo = ?, estoqueMaximo = ? WHERE id = ?;';
+        const sql = 'UPDATE produto SET descricao = ?, preco = ?, estoque_atual = ?, estoque_minimo = ?, estoque_maximo = ? WHERE id = ?;';
         const [rows] = await pool.execute(sql, [descricao, preco, estoqueAtual, estoqueMinimo, estoqueMaximo, id]);
         return rows;
     },

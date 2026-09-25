@@ -25,7 +25,7 @@ const clienteService = {
     },
 
      atualizarCliente: async (cliente) => {
-        const resultado = await clienteRepository.atualizarCliente(cliente.cpf, cliente.nome, cliente.email, cliente.id, cliente.telefone);
+        const resultado = await clienteRepository.atualizarCliente(cliente.cpf, cliente.nome, cliente.email, cliente.id, cliente.telefone, cliente.endereco);
         return resultado;
     }
 
