@@ -39,7 +39,7 @@ CREATE TABLE endereco (
 );
 CREATE TABLE pedido(
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    data_compra DATETIME NOT NULL,
+    data_compra DATETIME DEFAULT CURRENT_TIMESTAMP,
     valor_total DECIMAL(40,5) NOT NULL,
     id_cliente INT,
     id_user INT,

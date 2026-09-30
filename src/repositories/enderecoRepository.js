@@ -26,6 +26,8 @@ const enderecoRepository = {
     criar: async (cep, logradouro, numero, bairro, cidade, uf, idCliente) => {
         console.log(cep, logradouro, numero, bairro, cidade, uf);
 
+        //console.log({cep, logradouro, numero, bairro, cidade, uf, idCliente})
+        
         const sql = 'INSERT INTO endereco VALUES (null, ?, ?, ?, ?, ?, ?, ?);';
         const [rows] = await pool.execute(sql, [cep, logradouro, numero, bairro, cidade, uf, idCliente]);
         return rows;

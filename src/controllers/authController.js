@@ -24,7 +24,7 @@ const authController = {
 
             const accessToken = jwt.sign(
                 {
-                    id: userExists[0],
+                    id: userExists[0].id,
                     email: userExists[0].email,
                     name: userExists[0].name,
                     role: userExists[0].role

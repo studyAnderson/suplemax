@@ -6,6 +6,7 @@ import clienteRoutes from './routes/clienteRoutes.js';
 import enderecoRoutes from './routes/enderecoRoutes.js';
 import produtoRoutes from './routes/produtoRoutes.js';
 import loteRoutes from './routes/loteRoutes.js';
+import pedidoRoutes from './routes/pedidoRoutes.js';
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/auth', authRoutes);
 app.use('/endereco', enderecoRoutes);
 app.use('/produto', produtoRoutes);
 app.use('/lote', loteRoutes);
+app.use('/pedido', pedidoRoutes);
 
 app.listen(port, () => {
     console.log("Servidor rodando na porta " + port);
