@@ -7,7 +7,7 @@ const produtoService = {
         return resultado;
     },
     recuperarProdutoPorid: async (produtoId) => {
-        const resultado = await produtoRepository.recuperarProdutoPorId();
+        const resultado = await produtoRepository.selecionarPorId(produtoId);
         return resultado;
     },
     recuperarProdutoPorDescricao: async (descricao) => {

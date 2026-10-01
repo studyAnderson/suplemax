@@ -7,6 +7,7 @@ import enderecoRoutes from './routes/enderecoRoutes.js';
 import produtoRoutes from './routes/produtoRoutes.js';
 import loteRoutes from './routes/loteRoutes.js';
 import pedidoRoutes from './routes/pedidoRoutes.js';
+import itensRoutes from './routes/itensRoutes.js';
 
 
 const app = express();
@@ -20,7 +21,7 @@ app.use('/endereco', enderecoRoutes);
 app.use('/produto', produtoRoutes);
 app.use('/lote', loteRoutes);
 app.use('/pedido', pedidoRoutes);
-
+app.use('/itens', itensRoutes);
 app.listen(port, () => {
     console.log("Servidor rodando na porta " + port);
 });

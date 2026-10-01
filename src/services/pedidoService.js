@@ -1,4 +1,7 @@
 import pedidoRepository from "../repositories/pedidoRepository.js";
+import produtoRepository from "../repositories/produtoRepository.js";
+import itensRepository from "../repositories/itensRepository.js";
+import Itens from "../models/Itens.js";
 
 const pedidoService = {
     recuperarPedido: async () => {
@@ -20,7 +23,7 @@ const pedidoService = {
     },
 
      criarPedido: async (pedido) => {
-        const resultado = await pedidoRepository.criarPedido(pedido.dataCompra, pedido.valorTotal, pedido.idCliente, pedido.idUser);
+        const resultado = await pedidoRepository.criarPedido(pedido.valorTotal, pedido.idCliente, pedido.idUser, pedido.itens);
         return resultado;
     },
 
@@ -32,3 +35,5 @@ const pedidoService = {
 };
 
 export default pedidoService;
+
+// colocar itens e produto

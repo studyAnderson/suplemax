@@ -1,5 +1,8 @@
 import Pedido from "../models/Pedido.js";
+import Produto from "../models/Produto.js";
+import Itens from "../models/Itens.js";
 import pedidoService from "../services/pedidoService.js";
+import produtoService from "../services/produtoService.js";
 
 const pedidoController = {
 
@@ -22,14 +25,31 @@ const pedidoController = {
 
     criar: async (req, res) => {
         try {
-            const { dataCompra, valorTotal, idCliente } = req.body;
+            const { idCliente, itens } = req.body;
             const idUser = req.user.id;
-            
+
+            const itensObj = await Promise.all(
+                itens.map(async item => {
+                    const produto = await produtoService.recuperarProdutoPorid(
+                        item.id_produto
+                    );
+
+                    return new Itens(
+                        produto[0].preco,
+                        item.qtde,
+                        null,
+                        produto[0].id,
+                        null
+                    );
+                })
+            );
+
             const pedido = new Pedido(
-                dataCompra,
-                valorTotal,
+                null,
+                0,
                 idCliente,
                 idUser,
+                itensObj,
                 null
             );
 

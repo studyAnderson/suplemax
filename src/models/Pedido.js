@@ -4,15 +4,14 @@ class Pedido {
     #valorTotal;
     #idCliente;
     #idUser;
+    #itens;
     
-   
-    
-
-    constructor(dataCompra, valorTotal, idCliente, idUser, id = null){
+    constructor(dataCompra, valorTotal, idCliente, idUser, itens, id = null){
         this.#dataCompra = dataCompra;
         this.#valorTotal = valorTotal;
         this.#idCliente = idCliente;
         this.#idUser = idUser;
+        this.#itens = itens;
         this.#id = id;
         
     }
@@ -54,6 +53,14 @@ class Pedido {
 
     set idUser(value){
         this.#idUser = value;
+    }
+// itens
+    get itens(){
+        return this.#itens
+    }
+
+    set itens(value){
+        this.#itens = value;
     }
 
 }

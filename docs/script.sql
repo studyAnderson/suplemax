@@ -61,6 +61,8 @@ CREATE TABLE itens(
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     valor_produto DECIMAL(25,5) NOT NULL,
     quantidade TINYINT NOT NULL,
+    sub_total DECIMAL(25,5)
+        GENERATED ALWAYS AS (valor_produto * quantidade) STORED,
     id_pedido INT,
     id_produto INT,
     

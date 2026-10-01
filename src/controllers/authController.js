@@ -31,7 +31,7 @@ const authController = {
                 },
                 process.env.JWT_secret,
                 {
-                    expiresIn: '15m'
+                    expiresIn: '60m'
 
                 }
             )
