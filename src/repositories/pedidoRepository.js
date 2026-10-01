@@ -68,6 +68,11 @@ const pedidoRepository = {
                 console.log(item.valorProduto, item.quantidade, idPedido, item.idProduto);
                 
                 const [rowsItens] = await conn.execute(sqlItem, [item.valorProduto, item.quantidade, idPedido, item.idProduto]);
+
+                const [totalNovoEstoque] = await conn.execute(`SELECT (estoque_atual - ?)  AS "TOTAL" FROM produto WHERE id = ?;`, [item.quantidade, item.idProduto]);
+                
+                const sqlUpdateProduto = `UPDATE produto SET estoque_atual = ? WHERE id = ?`
+                const [rowsUpdate] = await conn.execute(sqlUpdateProduto, [totalNovoEstoque[0].TOTAL, item.idProduto]);
             });
 
             //calcular total pedido
